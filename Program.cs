@@ -66,11 +66,12 @@ namespace poney_valley
             }
         }
 
-        private static Animal ChoosePoney(PoneyFarm farm)
+        private static Animal ChoosePoney(Farm farm)
         {
+            int iterator = 1;
             foreach (var item in farm.Animals)
             {
-                Console.WriteLine();
+                Console.WriteLine(iterator++ + " " + item.Name);
             }
             return null;
             
