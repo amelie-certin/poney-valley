@@ -2,6 +2,7 @@
 using System;
 using Genealogy;
 using System.Collections.Generic;
+using equipement;
 namespace poney_valley
 {
     class Program
@@ -22,41 +23,54 @@ namespace poney_valley
             babyPoney.Parents = PoneyFarm.Animals.GetRange(3,2);
             PoneyFarm.Animals.Add(babyPoney);
             
-            DisplayMenu();
+            DisplayMenu(PoneyFarm);
 
 
         }
 
-        private static void DisplayMenu()
+        private static void DisplayMenu(Farm farm)
         {
             var running = true;
             while(running)
             {
+                Console.WriteLine("0 - Afficher tous les Poney");
                 Console.WriteLine("1 - Afficher la famille d'un Poney");
                 Console.WriteLine("2 - Afficher les informations d'un Poney");
                 Console.WriteLine("3 - Ajouter une action à un Poney");
                 Console.WriteLine("4 - Executer les actions d'un Poney");
                 Console.WriteLine("5 - Equiper un Poney");
-                Console.WriteLine("6 - Quitter");
-                int choice = Int32.Parse(Console.ReadLine());
-                switch(choice)
+                Console.WriteLine("6 - Afficher les Equipement d'un Poney");
+                Console.WriteLine("7 - Quitter");
+                string[] choice = Console.ReadLine().Split(" ");
+                Animal animal = null;
+                if (choice.Length > 1 || choice[0] != "0" && choice[0] != "7")
+                    animal = RetrievePoneyByName(choice[1], farm);
+                
+
+                switch(Int32.Parse(choice[0]))
                 {
+                    case 0:
+                        farm.DisplayAll();
+                        break;
                     case 1:
-                        // animal.DisplayFamilly();
+                        animal.DisplayFamilly();
                         break;
                     case 2:
-                        running = false;
+                        Console.WriteLine(animal.GetLife());
                         break;
                     case 3:
-                    running = false;
+                        appendAction(animal, choice[2]);
                         break;
                     case 4:
-                    running = false;
+                        animal.StartActions();
                         break;
                     case 5:
-                    running = false;
+                        appendEquipment(animal, choice);
                         break;
                     case 6:
+                        animal.DisplayEquipment();
+                        break;
+                    case 7:
                         running = false;
                         break;
                     default:
@@ -66,27 +80,32 @@ namespace poney_valley
             }
         }
 
-        private static Animal ChoosePoney(Farm farm)
+        private static Animal RetrievePoneyByName(string name, Farm farm)
         {
-            int iterator = 1;
-            foreach (var item in farm.Animals)
-            {
-                Console.WriteLine(iterator++ + " " + item.Name);
-            }
-            return null;
-            
+            return farm.Animals.Find( t => t.Name.Equals(name));   
         }
 
-        // private static void DisplayFamilly(Animal animal) {
-        //     GenealogyTree tree = new GenealogyTree();
-        //     GenealogyIterator iterator = tree.CreateIterator(animal);
-        //     var item = iterator.First();
-        //     while (item != null)
-        //     {
-        //         Console.WriteLine(item.GetLife());
-        //         item.StartActions();
-        //         item = iterator.Next();
-        //     }
-        // }
+        private static void appendEquipment(Animal animal, string[] choice){
+            IEquipment equipment = null;
+            if ("Bridle".Equals(choice[2]))
+                equipment = new Bridle();
+            else if ("Halter".Equals(choice[2]))
+                equipment = new Halter();
+            else if ("Saddle".Equals(choice[2]))
+                equipment = new Saddle();
+            else if ("Saddle Blanket".Equals(choice[2]+" "+choice[3]))
+                equipment = new SaddleBlanket();
+            else if ("Tether".Equals(choice[2]))
+                equipment = new Tether();
+
+            animal.Equipments.Add(equipment);
+        }
+
+        private static void appendAction(Animal animal, String action){
+            if ("Feed".Equals(action))
+                animal.AppendAction(new Feed());
+            else if ("Jump".Equals(action))
+                animal.AppendAction(new ShowJumping());
+        }
     }
 }

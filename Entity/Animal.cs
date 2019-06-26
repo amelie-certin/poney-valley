@@ -50,5 +50,9 @@ namespace poney_valley
                 item = iterator.Next();
             }
         }
+
+        public void DisplayEquipment(){
+            Equipments.ForEach( e => Console.WriteLine(e.Name));
+        }
     }
 }
