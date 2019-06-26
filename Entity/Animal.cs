@@ -1,9 +1,12 @@
+using System;
+using System.Collections.Generic;
 namespace poney_valley
 {
     public abstract class Animal 
     {
+        public List<Animal> Parents { get; set; }
         private int livePoint;
-        public string Name {get;};
+        public string Name {get;}
         public List<IAction> Actions {get; set;}
         public List<IEquipment> Equipments {get; set;}
     
@@ -20,7 +23,7 @@ namespace poney_valley
 
         public void AppendActions(List<IAction> actions)
         {
-            Actions.AddAll(actions);
+            Actions.AddRange(actions);
         }
 
         public void GetLife()
@@ -30,7 +33,7 @@ namespace poney_valley
 
         public void StartActions()
         {
-            Actions.foreach(action => action.Execute(this.Equipments));
+            Actions.ForEach(action => action.Execute(Equipments));
         }
     }
 }

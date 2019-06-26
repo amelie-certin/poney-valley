@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
+using poney_valley;
+
 namespace poney_valley
 {
     public class Feed : IAction
     {
-        public override void Execute(List<IEquipement> equipments)
+        public void Execute(List<IEquipment> equipments)
         {
             Console.WriteLine("nourir");
         }

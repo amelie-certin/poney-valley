@@ -1,10 +1,12 @@
+using poney_valley;
+
 namespace poney_valley
 {
     public class Main 
     {
-        static void Main(string[] args) 
+        static void main(string[] args) 
         {
-            Farm PoneyFarm = PoneyFactory.GetFarm();
+            Farm PoneyFarm = FarmFactory.GetFarm();
 
         }
     }

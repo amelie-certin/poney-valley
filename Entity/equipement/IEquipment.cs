@@ -1,3 +1,4 @@
+
 namespace poney_valley
 {
     public interface IEquipment
