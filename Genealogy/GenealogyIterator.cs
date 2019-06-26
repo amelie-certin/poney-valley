@@ -17,14 +17,19 @@ namespace Genealogy {
             get => current >= tree.Count;
         }
 
+        public Animal First()
+        {
+            return tree[0];
+        }
+
         public Animal Next()
         {
-        //     current++;
-        //     if(!IsDone)
-        //     {
-        //         return tree[current] as Animal;
-        //     }
-             return null;
-         }
+            current++;
+            if(!IsDone)
+            {
+                return tree[current];
+            }
+            return null;
+        }
     }
 }

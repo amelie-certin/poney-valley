@@ -6,7 +6,8 @@ namespace poney_valley
     {
         public Shetland(string name, int livePointStart): base(name, livePointStart)
         {
-            
+            AppendAction(new ShowJumping());
+            AppendAction(new Feed());
         }
 
     }

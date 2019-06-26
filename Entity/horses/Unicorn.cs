@@ -9,7 +9,8 @@ namespace poney_valley
         
         public Unicorn(string name, int livePointStart):  base(name, livePointStart)
         {
-           
+            AppendAction(new Feed());
+            AppendAction(new ShowJumping());
         }
     }
 }

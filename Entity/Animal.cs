@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Genealogy;
 namespace poney_valley
 {
     public abstract class Animal 
@@ -14,6 +15,9 @@ namespace poney_valley
         {
             this.Name = name;
             this.livePoint = livePointStart;
+            this.Parents = new List<Animal>();
+            this.Actions = new List<IAction>();
+            this.Equipments = new List<IEquipment>(); 
         }
 
         public void AppendAction(IAction action)
@@ -26,14 +30,25 @@ namespace poney_valley
             Actions.AddRange(actions);
         }
 
-        public void GetLife()
+        public String GetLife()
         {
-            Console.WriteLine("Point de vie de "+ this.Name +" => "+ this.livePoint +" PV" );
+            return "Point de vie de "+ this.Name +" => "+ this.livePoint +" PV";
         }
 
         public void StartActions()
         {
             Actions.ForEach(action => action.Execute(Equipments));
+        }
+
+        public void DisplayFamilly() {
+            GenealogyTree tree = new GenealogyTree();
+            GenealogyIterator iterator = tree.CreateIterator(this);
+            var item = iterator.First();
+            while (item != null)
+            {
+                Console.WriteLine(item.GetLife());
+                item = iterator.Next();
+            }
         }
     }
 }

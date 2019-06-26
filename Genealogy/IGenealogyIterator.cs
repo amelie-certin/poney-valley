@@ -2,7 +2,9 @@ using poney_valley;
 namespace Genealogy {
     public interface IGenealogyIterator
     {
-        public Animal Next();
-        public bool IsDone { get; }
+        Animal Next();
+        Animal First();
+
+        bool IsDone { get; }
     }
 }
